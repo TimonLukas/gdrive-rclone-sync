@@ -1,0 +1,6 @@
+FROM rclone/rclone:1
+
+COPY sync.sh /config/sync.sh
+
+ENTRYPOINT ["/config/sync.sh"]
+

@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  rclone:
+    build: ./container
+    volumes:
+      - ./config:/config/rclone:z,shared
+      - ../data:/data:z,shared
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - /etc/fuse.conf:/etc/fuse.conf:ro
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+      - label:disable
+    environment:
+      - REMOTE_FILE_NAME=$REMOTE_FILE_NAME
+      - REMOTE_NAME=$REMOTE_NAME
+    network_mode: host
+
